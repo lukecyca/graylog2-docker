@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+echo "Starting elasticsearch..."
+# Create the data directory if it doesn't exist
+chmod 775 /data
+mkdir -p /data/elasticsearch
+chmod 775 /data/elasticsearch
+chown elasticsearch:elasticsearch /data/elasticsearch
+exec chpst -u elasticsearch:elasticsearch /opt/elasticsearch/bin/elasticsearch \
+    -f -Des.path.data=/data/elasticsearch -Des.cluster.name=graylog2 >> /var/log/elasticsearch.log

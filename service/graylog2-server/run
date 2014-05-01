@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+# Wait for mongodb
+while ! echo exit | nc -z -w 3 localhost 27017; do sleep 3; done
+# Wait for mongodb
+while ! echo exit | nc -z -w 3 localhost 9200;  do sleep 3; done
+# Start it
+echo "Starting graylog2-server..."
+exec chpst -u graylog2:graylog2 /usr/bin/java -jar /opt/graylog2-server/graylog2-server.jar >> /var/log/graylog2-server.log

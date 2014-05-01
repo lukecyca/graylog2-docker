@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+echo "Starting mongodb..."
+# Create the data directory if it doesn't exist
+chmod 775 /data
+mkdir -p /data/mongodb
+chmod 775 /data/mongodb
+chown mongodb:mongodb /data/mongodb
+exec chpst -u mongodb:mongodb /usr/bin/mongod --dbpath=/data/mongodb --smallfiles --quiet --logappend --logpath=/var/log/mongodb/mongodb.log
