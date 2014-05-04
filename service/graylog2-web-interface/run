@@ -1,7 +1,0 @@
-#!/bin/bash
-set -e
-# Wait for server
-while ! echo exit | nc -z -w 3 localhost 12900;  do sleep 3; done
-# Start it
-echo "Starting graylog2-web-interface..."
-exec chpst -u graylog2:graylog2 /opt/graylog2-web-interface/bin/graylog2-web-interface >> /var/log/graylog2-web-interface.log
