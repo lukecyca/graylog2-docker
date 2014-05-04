@@ -1,4 +1,4 @@
 graylog2-docker
 ===============
 
-Debian-based, self-contained greylog2 image.
+Debian-based, self-contained graylog2 image.
