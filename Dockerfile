@@ -1,5 +1,7 @@
 FROM debian
 
+RUN apt-get update
+
 # Supervisord
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -q supervisor && \
     mkdir -p /var/log/supervisor
