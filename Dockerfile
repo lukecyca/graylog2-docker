@@ -57,9 +57,9 @@ RUN cd /opt/graylog2-docker && \
 # Expose ports
 #   - 22: sshd
 #   - 9000: Web interface
-#   - 12201: GELF UDP
+#   - 12201: GELF (UDP & TCP)
 #   - 12900: REST API
-EXPOSE 22 9000 12201/udp 12900
+EXPOSE 22 9000 12201 12201/udp 12900
 
 # Sync time to docker host
 VOLUME /etc/localtime:/etc/localtime:ro
