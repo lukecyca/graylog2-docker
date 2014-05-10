@@ -50,9 +50,7 @@ RUN cd /opt/graylog2-docker && \
     sed -i -e "s/application.secret=.*$/application.secret=\"$(pwgen -s 96)\"/" /opt/graylog2-web-interface/conf/graylog2-web-interface.conf && \
     sed -i -e "s/graylog2-server.uris=.*$/graylog2-server.uris=\"http:\/\/127.0.0.1:12900\/\"/" /opt/graylog2-web-interface/conf/graylog2-web-interface.conf && \
     echo "cluster.name: graylog2" >> /opt/elasticsearch/config/elasticsearch.yml && \
-    cp supervisord-graylog.conf /etc/supervisor/conf.d && \
-    mkdir -p /data/mongodb && \
-    chown mongodb /data/mongodb
+    cp supervisord-graylog.conf /etc/supervisor/conf.d
 
 # Expose ports
 #   - 22: sshd
@@ -61,5 +59,6 @@ RUN cd /opt/graylog2-docker && \
 #   - 12900: REST API
 EXPOSE 22 9000 12201 12201/udp 12900
 
-# Sync time to docker host
-VOLUME /etc/localtime:/etc/localtime:ro
+# Expose data directories
+VOLUME /opt/elasticsearch/data
+VOLUME /opt/mongodb
