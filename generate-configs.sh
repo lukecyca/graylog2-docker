@@ -29,7 +29,8 @@ enable_cors() {
 
 main() {
   is_easticsearch_cluster_defined \
-    && enable_cluster_in_graylog
+    && enable_cluster_in_graylog \
+    && dont_start_elasticsearch
   
   is_cors_enabled \
     && enable_cors
