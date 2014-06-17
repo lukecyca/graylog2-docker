@@ -12,6 +12,16 @@ is_using_elasticsearch_config_file() {
   [[ -f /etc/graylog2-elasticsearch.yml ]]
 }
 
+install_plugins() {
+  local string=$1
+  local plugins=(${string//,/ })
+  for i in "${!plugins[@]}"
+  do
+    /opt/elasticsearch/bin/plugin --install ${plugins[i]} \
+      && mv /opt/elasticsearch/plugins/* /opt/graylog2-server/plugins
+  done
+}
+
 enable_es_config_file() {
   sed -i -e "s/#elasticsearch_config_file = /etc/graylog2-elasticsearch.yml/elasticsearch_config_file = /etc/graylog2-elasticsearch.yml/" /etc/graylog2.conf
 }
@@ -31,14 +41,21 @@ enable_cors() {
   sed -i -e "s/#rest_enable_cors = true/rest_enable_cors = true/" /etc/graylog2.conf
 }
 
+is_defined() {
+  local var=$1
+  [[ -n "$var" ]]
+}
+
 main() {
+  is_defined "$GRAYLOG2_ES_PLUGINS" \
+    && install_plugins $GRAYLOG2_ES_PLUGINS
+
   is_using_elasticsearch_config_file \
     && enable_es_config_file
 
   is_easticsearch_cluster_defined \
     && enable_cluster_in_graylog \
     && dont_start_elasticsearch
-  
   is_cors_enabled \
     && enable_cors
 

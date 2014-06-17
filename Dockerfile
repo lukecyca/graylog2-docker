@@ -31,17 +31,14 @@ RUN wget -q https://download.elasticsearch.org/elasticsearch/elasticsearch/elast
     rm elasticsearch-*.tar.gz && \
     mv elasticsearch-* /opt/elasticsearch
 
-# Install a couple handy plugins that the user may opt to use
-RUN /opt/elasticsearch/bin/plugin -install elasticsearch/elasticsearch-cloud-aws/1.16.0
-RUN /opt/elasticsearch/bin/plugin -install lmenezes/elasticsearch-kopf/0.90
-
 # Graylog2 server
-RUN wget -q https://github.com/Graylog2/graylog2-server/releases/download/0.20.1/graylog2-server-0.20.1.tgz && \
+RUN wget  https://github.com/Graylog2/graylog2-server/releases/download/0.20.1/graylog2-server-0.20.1.tgz && \
     tar xzf graylog2-server-*.tgz && rm graylog2-server-*.tgz && \
-    mv graylog2-server-* /opt/graylog2-server
+    mv graylog2-server-* /opt/graylog2-server && \
+    mkdir -p /opt/graylog2-server/plugins
 
 # Graylog2 web interface
-RUN wget -q https://github.com/Graylog2/graylog2-web-interface/releases/download/0.20.1/graylog2-web-interface-0.20.1.tgz && \
+RUN wget  https://github.com/Graylog2/graylog2-web-interface/releases/download/0.20.1/graylog2-web-interface-0.20.1.tgz && \
     tar xzf graylog2-web-interface-*.tgz && rm graylog2-web-interface-*.tgz && \
     mv graylog2-web-interface-* /opt/graylog2-web-interface
 
