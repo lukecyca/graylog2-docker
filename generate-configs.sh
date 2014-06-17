@@ -1,7 +1,4 @@
-#!/bin/sh
-
-readonly GRAYLOG_CONFIG=/etc/graylog2.conf
-readonly SUPERVISORD_CONF=/etc/supervisor/conf.d/supervisord-graylog.conf
+#!/bin/bash
 
 is_easticsearch_cluster_defined() {
   [[ -n "$ES_CLUSTER_HOSTS" ]]
@@ -19,7 +16,7 @@ enable_cluster_in_graylog() {
 }
 
 dont_start_elasticsearch() {
-  sed -i -e "s/autorestart=true ;es/autorestart=false ;es/" /etc/supervisor/conf.d/supervisord-graylog.conf
+  sed -i -e "s/autorestart=true ;es/autorestart=false ;es\nautostart=false ;es/" /etc/supervisor/conf.d/supervisord-graylog.conf
 }
 
 enable_cors() {
