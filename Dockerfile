@@ -5,7 +5,7 @@ RUN apt-get update
 # Supervisord
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -q supervisor && \
     mkdir -p /var/log/supervisor
-CMD ["/usr/bin/supervisord", "-n"]
+CMD ["/usr/local/bin/graylog2-app"]
 
 # SSHD
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -q openssh-server && \
@@ -51,6 +51,10 @@ RUN cd /opt/graylog2-docker && \
     sed -i -e "s/graylog2-server.uris=.*$/graylog2-server.uris=\"http:\/\/127.0.0.1:12900\/\"/" /opt/graylog2-web-interface/conf/graylog2-web-interface.conf && \
     echo "cluster.name: graylog2" >> /opt/elasticsearch/config/elasticsearch.yml && \
     cp supervisord-graylog.conf /etc/supervisor/conf.d
+
+# Utility Shell Scripts
+ADD run.sh /usr/local/bin/graylog2-app
+ADD generate-configs.sh /usr/local/bin/generate-configs
 
 # Expose ports
 #   - 22: sshd
