@@ -7,7 +7,22 @@ Debian-based, self-contained graylog2 image. Can run standalone or backed by an 
 
 ## Using It
 
-The username/password is admin/admin.
+To get started quickly with an embedded elasticsearch instance, do this:
+
+```bash
+
+docker run -d -p 9000:9000 -p 514:514 -p 12201:12201 lukecyca/graylog2-docker
+```
+
+To get it rolling with an existing elasticsearch cluster
+
+```bash
+
+docker run -d -p 9000:9000 -p 514:514 -p 12201:12201 -e ES_CLUSTER_NAME=<cluster_name> -e ES_CLUSTER_HOSTS=cluster01:9300,cluster02:9300 lukecyca/graylog2-docker
+
+```
+
+The username/password to the web interface is admin/admin.
 
 
 ## Environment Variables
