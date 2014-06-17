@@ -8,6 +8,14 @@ is_cors_enabled() {
   [[ -n "$CORS_ENABLED" ]]
 }
 
+is_using_elasticsearch_config_file() {
+  [[ -n "$GRAYLOG2_ES_CONFIG_FILE" ]]
+}
+
+enable_es_config_file() {
+  sed -i -e "s/#elasticsearch_config_file = /etc/graylog2-elasticsearch.yml/elasticsearch_config_file = /etc/graylog2-elasticsearch.yml/" /etc/graylog2.conf
+}
+
 enable_cluster_in_graylog() {
   sed -i -e "s/#elasticsearch_cluster_name = graylog2/elasticsearch_cluster_name = ${ES_CLUSTER_NAME}/" /etc/graylog2.conf
   sed -i -e "s/#elasticsearch_node_master = false/elasticsearch_node_master = false/" /etc/graylog2.conf
@@ -23,8 +31,10 @@ enable_cors() {
   sed -i -e "s/#rest_enable_cors = true/rest_enable_cors = true/" /etc/graylog2.conf
 }
 
-
 main() {
+  is_using_elasticsearch_config_file \
+    && enable_es_config_file
+
   is_easticsearch_cluster_defined \
     && enable_cluster_in_graylog \
     && dont_start_elasticsearch
