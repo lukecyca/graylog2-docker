@@ -9,7 +9,7 @@ is_cors_enabled() {
 }
 
 is_using_elasticsearch_config_file() {
-  [[ -n "$GRAYLOG2_ES_CONFIG_FILE" ]]
+  [[ -f /etc/graylog2-elasticsearch.yml ]]
 }
 
 enable_es_config_file() {
