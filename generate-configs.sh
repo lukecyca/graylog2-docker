@@ -73,6 +73,9 @@ main() {
   is_defined "$GRAYLOG2_ADMIN_PASSWORD" \
     && define_the_damn_admin_password
 
+  # eventually the bash retardedness will go to the python file. :-/
+  generate-graylog2-es
+
   is_using_elasticsearch_config_file \
     && enable_es_config_file
 
@@ -83,8 +86,6 @@ main() {
   is_cors_enabled \
     && enable_cors
 
-  # eventually the bash retardedness will go to the python file. :-/
-  generate-graylog2-es
   return 0
 }
 
