@@ -1,7 +1,7 @@
 #!/bin/bash
 
 is_easticsearch_cluster_defined() {
-  [[ -n "$ES_CLUSTER_HOSTS" ]]
+  [[ -n "$ES_CLUSTER_NAME" ]]
 }
 
 is_cors_enabled() {
