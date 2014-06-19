@@ -53,13 +53,22 @@ is_defined() {
 }
 
 define_the_damn_admin_password() {
-  sed -i -e "s/root_password_sha2 = $(echo -n admin | sha256sum | awk '{print $1}')/root_password_sha2 = $(echo -n $GRAYLOG2_ADMIN_PASSWORD | sha256sum | awk '{print $1}')/" /etc/graylog2.conf
+  sed -i -e "s/root_password_sha2 = $(echo -n admin | sha256sum | awk '{print $1}')/root_password_sha2 = $GRAYLOG2_ADMIN_PASSWORD/" /etc/graylog2.conf
+}
+
+replace_admin_user() {
+  local user=$1
+
+  sed -i -e "s/# root_username = admin/root_username = $user/" /etc/graylog2.conf
 }
 
 main() {
   is_defined "$GRAYLOG2_ES_PLUGINS" \
     && is_dir_not_empty /opt/graylog2-server/plugins \
     || install_plugins $GRAYLOG2_ES_PLUGINS
+
+  is_defined "$GRAYLOG2_ADMIN_USER" \
+    && replace_admin_user
 
   is_defined "$GRAYLOG2_ADMIN_PASSWORD" \
     && define_the_damn_admin_password
