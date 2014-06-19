@@ -44,7 +44,7 @@ already be sha256 hashed. Do this in a console: ``echo $(echo -n clever | sha256
 #### Graylog Elasticsearch Configuration
 You can also define any number of vairables to tune the definition of
 the embedded graylog2 elasticsearch instance as well. These are defined
-with the prefix ``GEC_`` and convert _ to . when the elasticsearch
+with the prefix ``gec.`` and written when the elasticsearch
 configuration file is generated. 
 
 For example, say we want to enable the http interface, host it on port
@@ -52,7 +52,7 @@ For example, say we want to enable the http interface, host it on port
 
 
 ```bash
--e GEC_HTTP_PORT=9500 -e GEC_HTTP_ENABLED=true -e GEC_PATH_PLUGINS=/opt/graylog2-server/plugins
+-e GEC.HTTP.PORT=9500 -e GEC.HTTP.ENABLED=true -e GEC.PATH.PLUGINS=/opt/graylog2-server/plugins
 
 ```
 

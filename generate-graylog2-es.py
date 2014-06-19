@@ -7,8 +7,9 @@ ELASTICSEARCH_CONFIG_FILE = os.path.join('/etc', 'graylog2-elasticsearch.yml')
 
 struct = {}
 for k, v in os.environ.items():
-    if k.startswith('GEC'):
-        es_key = k.lower().replace('_', '.').replace('gec.', '')
+    k = k.lower()
+    if k.startswith('gec.'):
+        es_key = k.lower().replace('gec.', '')
         struct[es_key] = int(v) if v.isdigit() else v
 
 if struct:
