@@ -29,7 +29,7 @@ install_plugins() {
 }
 
 enable_es_config_file() {
-  sed -i -e "s/#elasticsearch_config_file = /etc/graylog2-elasticsearch.yml/elasticsearch_config_file = /etc/graylog2-elasticsearch.yml/" /etc/graylog2.conf
+  sed -i -e "s/#elasticsearch_config_file = \/etc\/graylog2-elasticsearch.yml/elasticsearch_config_file = \/etc\/graylog2-elasticsearch.yml/" /etc/graylog2.conf
 }
 
 enable_cluster_in_graylog() {
@@ -68,7 +68,7 @@ main() {
     || install_plugins $GRAYLOG2_ES_PLUGINS
 
   is_defined "$GRAYLOG2_ADMIN_USER" \
-    && replace_admin_user
+    && replace_admin_user $GRAYLOG2_ADMIN_USER
 
   is_defined "$GRAYLOG2_ADMIN_PASSWORD" \
     && define_the_damn_admin_password
