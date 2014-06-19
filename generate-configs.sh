@@ -12,6 +12,12 @@ is_using_elasticsearch_config_file() {
   [[ -f /etc/graylog2-elasticsearch.yml ]]
 }
 
+is_dir_not_empty() {
+  local dir=$1
+
+  [[ "$(ls -A $dir)" ]]
+}
+
 install_plugins() {
   local string=$1
   local plugins=(${string//,/ })
@@ -46,9 +52,17 @@ is_defined() {
   [[ -n "$var" ]]
 }
 
+define_the_damn_admin_password() {
+  sed -i -e "s/root_password_sha2 = $(echo -n admin | sha256sum | awk '{print $1}')/root_password_sha2 = $(echo -n $GRAYLOG2_ADMIN_PASSWORD | sha256sum | awk '{print $1}')/" /etc/graylog2.conf
+}
+
 main() {
   is_defined "$GRAYLOG2_ES_PLUGINS" \
-    && install_plugins $GRAYLOG2_ES_PLUGINS
+    && is_dir_not_empty /opt/graylog2-server/plugins \
+    || install_plugins $GRAYLOG2_ES_PLUGINS
+
+  is_defined "$GRAYLOG2_ADMIN_PASSWORD" \
+    && define_the_damn_admin_password
 
   is_using_elasticsearch_config_file \
     && enable_es_config_file
@@ -56,6 +70,7 @@ main() {
   is_easticsearch_cluster_defined \
     && enable_cluster_in_graylog \
     && dont_start_elasticsearch
+
   is_cors_enabled \
     && enable_cors
 

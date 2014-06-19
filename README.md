@@ -30,3 +30,9 @@ The username/password to the web interface is admin/admin.
 * ``ES_CLUSTER_NAME`` - the name of the elasticsearch cluster this graylog2 instance should join
 * ``ES_CLUSTER_HOSTS`` - comma separated string of host/port combinations that graylog2 should attempt to connect to. This will get plugged into ``elasticsearch_discovery_zen_ping_unicast_hosts`` in the graylog2.conf
 * ``CORS_ENABLED`` - Enable CORS
+* `GRAYLOG2_ES_PLUGINS` - comma separated list of elasticsearch plugins
+to include. Will install on first run. (e.g.
+``GRAYLOG2_ES_PLUGINS=elasticsearch/elasticsearch-cloud-aws/1.6.0,lmenezes/elasticsearch-kopf/0.9.0``)
+* `GRAYLOG2_ADMIN_PASSWORD` - Sets the admin password for graylog2
+
+
