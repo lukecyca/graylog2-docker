@@ -83,6 +83,8 @@ main() {
   is_cors_enabled \
     && enable_cors
 
+  # eventually the bash retardedness will go to the python file. :-/
+  generate-graylog2-es
   return 0
 }
 

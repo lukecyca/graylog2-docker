@@ -13,7 +13,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -q openssh-server && \
     echo 'root:root' | chpasswd
 
 # Utilities
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -q vim curl wget ca-certificates apt-utils
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -q vim curl wget ca-certificates apt-utils python-yaml python-setuptools
 
 # Install OpenJDK 7
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -q openjdk-7-jre-headless
@@ -56,6 +56,9 @@ RUN cd /opt/graylog2-docker && \
 # Utility Shell Scripts
 ADD run.sh /usr/local/bin/graylog2-app
 ADD generate-configs.sh /usr/local/bin/generate-configs
+ADD generate-graylog2-es.py /usr/local/bin/generate-graylog2-es
+
+RUN chmod a+x /usr/local/bin/*
 
 # Expose ports
 #   - 22: sshd
