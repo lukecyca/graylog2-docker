@@ -11,14 +11,14 @@ To get started quickly with an embedded elasticsearch instance, do this:
 
 ```bash
 
-docker run -d -p 9000:9000 -p 514:514 -p 12201:12201 lukecyca/graylog2-docker
+docker run -d -p 9000:9000 -p 514:514 -p 12201:12201 jamescarr/graylog2-docker
 ```
 
 To get it rolling with an existing elasticsearch cluster
 
 ```bash
 
-docker run -d -p 9000:9000 -p 514:514 -p 12201:12201 -e ES_CLUSTER_NAME=<cluster_name> -e ES_CLUSTER_HOSTS=cluster01:9300,cluster02:9300 lukecyca/graylog2-docker
+docker run -d -p 9000:9000 -p 514:514 -p 12201:12201 -e ES_CLUSTER_NAME=<cluster_name> -e ES_CLUSTER_HOSTS=cluster01:9300,cluster02:9300 jamescarr/graylog2-docker
 
 ```
 
@@ -52,7 +52,7 @@ For example, say we want to enable the http interface, host it on port
 
 
 ```bash
--e GEC.HTTP.PORT=9500 -e GEC.HTTP.ENABLED=true -e GEC.PATH.PLUGINS=/opt/graylog2-server/plugins
+-e gec.http.port=9500 -e gec.http.enabled=true -e gec.path.plugins=/opt/graylog2-server/plugins
 
 ```
 
