@@ -1,7 +1,7 @@
 #!/bin/bash
 
 is_easticsearch_cluster_defined() {
-  [[ -n "$ES_CLUSTER_HOSTS" ]]
+  [[ -n "$ES_CLUSTER_NAME" ]]
 }
 
 is_cors_enabled() {
@@ -72,6 +72,9 @@ main() {
 
   is_defined "$GRAYLOG2_ADMIN_PASSWORD" \
     && define_the_damn_admin_password
+
+  # eventually the bash retardedness will go to the python file. :-/
+  generate-graylog2-es
 
   is_using_elasticsearch_config_file \
     && enable_es_config_file

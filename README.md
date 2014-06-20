@@ -11,14 +11,14 @@ To get started quickly with an embedded elasticsearch instance, do this:
 
 ```bash
 
-docker run -d -p 9000:9000 -p 514:514 -p 12201:12201 lukecyca/graylog2-docker
+docker run -d -p 9000:9000 -p 514:514 -p 12201:12201 jamescarr/graylog2-docker
 ```
 
 To get it rolling with an existing elasticsearch cluster
 
 ```bash
 
-docker run -d -p 9000:9000 -p 514:514 -p 12201:12201 -e ES_CLUSTER_NAME=<cluster_name> -e ES_CLUSTER_HOSTS=cluster01:9300,cluster02:9300 lukecyca/graylog2-docker
+docker run -d -p 9000:9000 -p 514:514 -p 12201:12201 -e ES_CLUSTER_NAME=<cluster_name> -e ES_CLUSTER_HOSTS=cluster01:9300,cluster02:9300 jamescarr/graylog2-docker
 
 ```
 
@@ -41,3 +41,26 @@ to include. Will install on first run. (e.g.
 already be sha256 hashed. Do this in a console: ``echo $(echo -n clever | sha256sum | awk '{print $1}')``
 * `GRAYLOG2_ADMIN_USER` - Sets the admin password for graylog2
 
+#### Graylog Elasticsearch Configuration
+You can also define any number of vairables to tune the definition of
+the embedded graylog2 elasticsearch instance as well. These are defined
+with the prefix ``gec.`` and written when the elasticsearch
+configuration file is generated. 
+
+For example, say we want to enable the http interface, host it on port
+9500 and specify the plugin path: 
+
+
+```bash
+-e gec.http.port=9500 -e gec.http.enabled=true -e gec.path.plugins=/opt/graylog2-server/plugins
+
+```
+
+This will generate the following configuration file: 
+
+```yaml
+http.enabled: true
+http.port: 9500
+path.plugins: /opt/graylog2-server/plugins
+
+```
