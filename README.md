@@ -1,7 +1,7 @@
 graylog2-docker
 ===============
 
-Debian-based, self-contained graylog2 image. Can run standalone or backed by an existing elasticsearch cluter. 
+Debian-based, self-contained graylog2 image. Can run standalone or backed by an existing elasticsearch cluster. 
 
 
 
